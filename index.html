@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RNN-Based Sequential Data Prediction System</title>
+    <meta
+      name="description"
+      content="Comprehensive frontend-only demonstration of Recurrent Neural Networks (RNN) for sequential and time-series data prediction, preprocessing, architecture, interactive training, and evaluation."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a href="#home" class="brand" aria-label="RNN project home">
+          <span class="brand-mark">RNN</span>
+          <div class="brand-info">
+            <span class="brand-text">Sequential Prediction</span>
+            <span class="brand-sub">Deep Learning Demonstration</span>
+          </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About RNN</a>
+          <a href="#dataset">Dataset</a>
+          <a href="#preprocessing">Preprocessing</a>
+          <a href="#model">Architecture</a>
+          <a href="#training">Training</a>
+          <a href="#prediction">Prediction</a>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#applications">Applications</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle visual theme">
+            <span class="toggle-icon">🌙</span>
+            <span class="toggle-label">Theme</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Section 1: Home / Landing Page -->
+      <section id="home" class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="badge-row">
+              <span class="pill-badge accent-badge">Deep Learning • Sequence Modeling</span>
+              <span class="pill-badge success-badge">100% Frontend-Only</span>
+            </div>
+            <h1>RNN-Based Sequential Data Prediction System</h1>
+            <p class="lead">
+              An interactive machine learning demonstration showcasing how Recurrent Neural Networks (RNN)
+              retain temporal memory, process time-series sequences, and forecast future values without
+              relying on external backend services or databases.
+            </p>
+
+            <div class="cta-row">
+              <a class="primary-btn" href="#training">
+                <span class="btn-icon">▶</span> Run Training Simulation
+              </a>
+              <a class="secondary-btn" href="#prediction">
+                <span class="btn-icon">⚡</span> Try Sequence Prediction
+              </a>
+              <a class="ghost-btn" href="#dataset">Explore Dataset</a>
+            </div>
+
+            <!-- Project Objectives (Document Requirement 1) -->
+            <div class="objectives-wrapper">
+              <h3 class="objectives-title">Core Project Objectives</h3>
+              <div class="objectives-grid">
+                <div class="objective-card">
+                  <div class="obj-icon">🔄</div>
+                  <div>
+                    <strong>Recurrent Memory</strong>
+                    <p>Demonstrate how hidden states pass context through time steps.</p>
+                  </div>
+                </div>
+                <div class="objective-card">
+                  <div class="obj-icon">📊</div>
+                  <div>
+                    <strong>Sliding Window Pipeline</strong>
+                    <p>Transform raw sequential data into (X, y) training pairs.</p>
+                  </div>
+                </div>
+                <div class="objective-card">
+                  <div class="obj-icon">⚡</div>
+                  <div>
+                    <strong>Interactive Training</strong>
+                    <p>Simulate loss convergence and epoch-by-epoch learning live.</p>
+                  </div>
+                </div>
+                <div class="objective-card">
+                  <div class="obj-icon">🎯</div>
+                  <div>
+                    <strong>Multi-Step Forecast</strong>
+                    <p>Generate next-step and horizon predictions from custom inputs.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-panel" aria-label="RNN Interactive Process Panel">
+            <div class="panel-header">
+              <div class="dot-cluster">
+                <span class="dot green"></span>
+                <span class="dot amber"></span>
+                <span class="dot red"></span>
+              </div>
+              <span class="panel-tag">Temporal Signal Flow</span>
+            </div>
+
+            <div class="model-flow">
+              <div class="flow-card">
+                <span class="card-step">Input</span>
+                <strong>Sequence</strong>
+                <span class="card-detail">[x_{t-k} ... x_t]</span>
+              </div>
+              <div class="arrow">→</div>
+              <div class="flow-card active">
+                <span class="card-step">Hidden</span>
+                <strong>RNN Cell</strong>
+                <span class="card-detail">h_t = tanh(Wh + Ux)</span>
+              </div>
+              <div class="arrow">→</div>
+              <div class="flow-card">
+                <span class="card-step">Memory</span>
+                <strong>State h_t</strong>
+                <span class="card-detail">Context Vector</span>
+              </div>
+              <div class="arrow">→</div>
+              <div class="flow-card">
+                <span class="card-step">Output</span>
+                <strong>Forecast</strong>
+                <span class="card-detail">ŷ_{t+1}</span>
+              </div>
+            </div>
+
+            <!-- Signal Bars Animation -->
+            <div class="signal-bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="panel-footer-meta">
+              <span>State: <strong>Synchronized</strong></span>
+              <span>Mode: <strong>Local Browser Execution</strong></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: About RNN -->
+      <section id="about" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">About RNN</p>
+            <h2>How Recurrent Neural Networks Model Sequential Data</h2>
+            <p class="section-sub">
+              Understanding temporal dependencies, recurrent memory cells, and mathematical information flow.
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <div class="theory-cards">
+              <div class="info-card">
+                <div class="card-header-icon">⏱️</div>
+                <h3>What is Sequential Data?</h3>
+                <p>
+                  Sequential data represents ordered observations where each data point depends fundamentally
+                  on the preceding context—such as hourly electricity demand, ambient temperature fluctuations,
+                  audio speech waveforms, or words in natural language sentences. Standard feedforward networks
+                  assume all inputs are independent, making them unable to capture temporal continuity.
+                </p>
+              </div>
+
+              <div class="info-card">
+                <div class="card-header-icon">🧠</div>
+                <h3>Hidden States &amp; Memory Retention</h3>
+                <p>
+                  An RNN solves the independence limitation by maintaining an internal <strong>hidden state vector h_t</strong>.
+                  At every time step t, the network combines the current input x_t with the previous hidden state h_{t-1}:
+                </p>
+                <div class="equation-box">
+                  <code>h_t = tanh(W_{hh} · h_{t-1} + W_{xh} · x_t + b_h)</code>
+                </div>
+                <p>
+                  This recurrence loop acts as working memory, carrying compressed past context across arbitrarily long sequences.
+                </p>
+              </div>
+
+              <div class="info-card">
+                <div class="card-header-icon">🌊</div>
+                <h3>Information Flow &amp; Gradient Dynamics</h3>
+                <p>
+                  During prediction, information flows forward step-by-step through unfolded time. During training,
+                  gradients propagate backward through time (BPTT). While vanilla RNNs can suffer from vanishing gradients
+                  over long sequences, their architecture serves as the foundation for modern gated architectures like LSTMs and GRUs.
+                </p>
+              </div>
+            </div>
+
+            <!-- Visually Appealing RNN Architecture Diagram (Document Requirement 2) -->
+            <div class="interactive-diagram-card">
+              <div class="diagram-top">
+                <div>
+                  <span class="badge-sm">Architecture Visualizer</span>
+                  <h3>RNN Cell &amp; Unrolled Time Network</h3>
+                </div>
+                <div class="stepper-controls">
+                  <button id="stepPrevBtn" class="control-btn" type="button" title="Previous Time Step">◀ Prev</button>
+                  <span id="stepIndicator" class="step-badge">Step 1 of 5</span>
+                  <button id="stepNextBtn" class="control-btn" type="button" title="Next Time Step">Next ▶</button>
+                  <button id="stepAutoBtn" class="control-btn accent" type="button">Auto Play</button>
+                </div>
+              </div>
+
+              <!-- High-Fidelity SVG Diagram of Folded vs Unfolded RNN -->
+              <div class="rnn-svg-card">
+                <div class="svg-diagram-wrapper">
+                  <svg viewBox="0 0 620 180" class="rnn-architecture-svg" aria-label="RNN Folded and Unfolded Architecture Diagram">
+                    <!-- Folded Unit Section -->
+                    <g transform="translate(10, 10)">
+                      <rect x="0" y="0" width="160" height="160" rx="14" fill="rgba(255,255,255,0.03)" stroke="var(--border)" />
+                      <text x="80" y="24" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle">FOLDED CELL</text>
+                      
+                      <!-- Input Node -->
+                      <circle cx="80" cy="135" r="16" fill="rgba(56, 189, 248, 0.18)" stroke="var(--accent)" stroke-width="2"/>
+                      <text x="80" y="140" fill="var(--text-bright)" font-size="11" font-weight="600" text-anchor="middle">x_t</text>
+                      
+                      <!-- Arrow up -->
+                      <path d="M 80 119 L 80 95" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowCyan)"/>
+                      <text x="94" y="110" fill="var(--muted)" font-size="10">W_{xh}</text>
+                      
+                      <!-- Cell Box -->
+                      <rect x="52" y="55" width="56" height="40" rx="8" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+                      <text x="80" y="74" fill="var(--text-bright)" font-size="11" font-weight="700" text-anchor="middle">RNN (h_t)</text>
+                      <text x="80" y="87" fill="var(--accent-cyan)" font-size="9" text-anchor="middle">tanh</text>
+                      
+                      <!-- Recurrent Self Loop -->
+                      <path d="M 108 75 C 145 50, 145 100, 108 85" fill="none" stroke="var(--accent-warm)" stroke-width="2" marker-end="url(#arrowAmber)"/>
+                      <text x="142" y="78" fill="var(--accent-warm)" font-size="9" font-weight="700">W_{hh}</text>
+                      
+                      <!-- Arrow to Output -->
+                      <path d="M 80 55 L 80 32" stroke="var(--success)" stroke-width="2"/>
+                      <circle cx="80" cy="24" r="7" fill="var(--success)"/>
+                    </g>
+
+                    <!-- Transition Marker -->
+                    <g transform="translate(180, 80)">
+                      <text x="10" y="15" fill="var(--muted)" font-size="16" font-weight="bold">Unfold ⟹</text>
+                    </g>
+
+                    <!-- Unfolded Network Section -->
+                    <g transform="translate(260, 10)">
+                      <rect x="0" y="0" width="345" height="160" rx="14" fill="rgba(255,255,255,0.03)" stroke="var(--border)" />
+                      <text x="172" y="24" fill="var(--accent-cyan)" font-size="11" font-weight="700" text-anchor="middle">UNFOLDED TEMPORAL NETWORK</text>
+
+                      <!-- Step t-1 -->
+                      <circle cx="50" cy="135" r="14" fill="rgba(56, 189, 248, 0.14)" stroke="var(--border)" stroke-width="1.5"/>
+                      <text x="50" y="139" fill="var(--muted)" font-size="10" text-anchor="middle">x_{t-1}</text>
+                      <path d="M 50 121 L 50 95" stroke="var(--border)" stroke-width="1.5"/>
+                      <rect x="25" y="60" width="50" height="34" rx="6" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+                      <text x="50" y="81" fill="var(--text)" font-size="10" font-weight="600" text-anchor="middle">Cell_{t-1}</text>
+                      <path d="M 50 60 L 50 38" stroke="var(--border)" stroke-width="1.5"/>
+                      <circle cx="50" cy="34" r="5" fill="var(--muted)"/>
+
+                      <!-- Arrow to Step t -->
+                      <path d="M 75 77 L 138 77" stroke="var(--accent-warm)" stroke-width="2" marker-end="url(#arrowAmber)"/>
+                      <text x="107" y="70" fill="var(--accent-warm)" font-size="9" text-anchor="middle">h_{t-1}</text>
+
+                      <!-- Step t (Active) -->
+                      <circle cx="165" cy="135" r="16" fill="rgba(56, 189, 248, 0.22)" stroke="var(--accent)" stroke-width="2"/>
+                      <text x="165" y="140" fill="var(--text-bright)" font-size="11" font-weight="700" text-anchor="middle">x_t</text>
+                      <path d="M 165 119 L 165 95" stroke="var(--accent)" stroke-width="2"/>
+                      <rect x="138" y="55" width="54" height="40" rx="8" fill="linear-gradient(135deg, rgba(56,189,248,0.2), rgba(2,132,199,0.3))" stroke="var(--accent)" stroke-width="2"/>
+                      <text x="165" y="75" fill="var(--text-bright)" font-size="11" font-weight="700" text-anchor="middle">Cell_t</text>
+                      <text x="165" y="87" fill="var(--accent-cyan)" font-size="9" text-anchor="middle">h_t</text>
+                      <path d="M 165 55 L 165 34" stroke="var(--success)" stroke-width="2"/>
+                      <circle cx="165" cy="26" r="8" fill="var(--success)"/>
+                      <text x="165" y="29" fill="#031422" font-size="9" font-weight="800" text-anchor="middle">ŷ_t</text>
+
+                      <!-- Arrow to Step t+1 -->
+                      <path d="M 192 77 L 255 77" stroke="var(--accent-warm)" stroke-width="2" marker-end="url(#arrowAmber)"/>
+                      <text x="224" y="70" fill="var(--accent-warm)" font-size="9" text-anchor="middle">h_t</text>
+
+                      <!-- Step t+1 -->
+                      <circle cx="280" cy="135" r="14" fill="rgba(56, 189, 248, 0.14)" stroke="var(--border)" stroke-width="1.5"/>
+                      <text x="280" y="139" fill="var(--muted)" font-size="10" text-anchor="middle">x_{t+1}</text>
+                      <path d="M 280 121 L 280 95" stroke="var(--border)" stroke-width="1.5"/>
+                      <rect x="255" y="60" width="50" height="34" rx="6" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+                      <text x="280" y="81" fill="var(--text)" font-size="10" font-weight="600" text-anchor="middle">Cell_{t+1}</text>
+                      <path d="M 280 60 L 280 38" stroke="var(--border)" stroke-width="1.5"/>
+                      <circle cx="280" cy="34" r="5" fill="var(--muted)"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Interactive Stepper -->
+              <div class="unrolled-cells-container" id="unrolledCells">
+                <div class="cell-column" data-step="0">
+                  <div class="node-target" id="y0">ŷ₁</div>
+                  <div class="cell-arrow-down">↑</div>
+                  <div class="cell-box" id="cell0">
+                    <div class="cell-title">RNN Cell</div>
+                    <div class="cell-math">h₁ = tanh(Wh₀ + Ux₁)</div>
+                  </div>
+                  <div class="cell-arrow-up">↑</div>
+                  <div class="node-input" id="x0">x₁ = 18.2</div>
+                </div>
+
+                <div class="cell-connector">→</div>
+
+                <div class="cell-column" data-step="1">
+                  <div class="node-target" id="y1">ŷ₂</div>
+                  <div class="cell-arrow-down">↑</div>
+                  <div class="cell-box" id="cell1">
+                    <div class="cell-title">RNN Cell</div>
+                    <div class="cell-math">h₂ = tanh(Wh₁ + Ux₂)</div>
+                  </div>
+                  <div class="cell-arrow-up">↑</div>
+                  <div class="node-input" id="x1">x₂ = 22.5</div>
+                </div>
+
+                <div class="cell-connector">→</div>
+
+                <div class="cell-column" data-step="2">
+                  <div class="node-target" id="y2">ŷ₃</div>
+                  <div class="cell-arrow-down">↑</div>
+                  <div class="cell-box" id="cell2">
+                    <div class="cell-title">RNN Cell</div>
+                    <div class="cell-math">h₃ = tanh(Wh₂ + Ux₃)</div>
+                  </div>
+                  <div class="cell-arrow-up">↑</div>
+                  <div class="node-input" id="x2">x₃ = 27.1</div>
+                </div>
+
+                <div class="cell-connector">→</div>
+
+                <div class="cell-column" data-step="3">
+                  <div class="node-target" id="y3">ŷ₄</div>
+                  <div class="cell-arrow-down">↑</div>
+                  <div class="cell-box" id="cell3">
+                    <div class="cell-title">RNN Cell</div>
+                    <div class="cell-math">h₄ = tanh(Wh₃ + Ux₄)</div>
+                  </div>
+                  <div class="cell-arrow-up">↑</div>
+                  <div class="node-input" id="x3">x₄ = 31.8</div>
+                </div>
+
+                <div class="cell-connector">→</div>
+
+                <div class="cell-column" data-step="4">
+                  <div class="node-target highlight" id="y4">ŷ₅ (Target)</div>
+                  <div class="cell-arrow-down">↑</div>
+                  <div class="cell-box" id="cell4">
+                    <div class="cell-title">Dense Out</div>
+                    <div class="cell-math">ŷ = V·h₅ + b_y</div>
+                  </div>
+                  <div class="cell-arrow-up">↑</div>
+                  <div class="node-input" id="x4">x₅ = 36.4</div>
+                </div>
+              </div>
+
+              <!-- Interactive State Inspector -->
+              <div class="step-explanation" id="stepExplanation">
+                <strong>Time Step t=1:</strong> Input x₁ is transformed via input weight W_{xh}.
+                With initial hidden state h₀ = 0, the first memory state h₁ is generated.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Dataset Section -->
+      <section id="dataset" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Dataset Section</p>
+            <h2>Sequential &amp; Time-Series Data Exploration</h2>
+            <p class="section-sub">
+              Inspect multi-domain sequential datasets, analyze statistical properties, and observe trends.
+            </p>
+          </div>
+
+          <!-- Dataset Controls -->
+          <div class="dataset-controls-bar">
+            <div class="selector-group">
+              <label for="datasetSelect">Select Active Dataset:</label>
+              <select id="datasetSelect" class="custom-select">
+                <option value="energy">Daily Energy Demand (MW)</option>
+                <option value="temperature">Atmospheric Temperature (°C)</option>
+                <option value="financial">Financial Market Index ($)</option>
+                <option value="harmonic">Synthetic Sinusoidal Wave</option>
+              </select>
+            </div>
+            <div class="dataset-desc-pill" id="datasetDescription">
+              Hourly cyclical power consumption with peak daytime load patterns.
+            </div>
+            <div class="dataset-action-buttons">
+              <button id="regenDatasetBtn" class="secondary-btn btn-sm" type="button">
+                ↻ Regenerate / Noise Sample
+              </button>
+              <button id="toggleCustomDataBtn" class="ghost-btn btn-sm" type="button">
+                ✏️ Input Custom Dataset
+              </button>
+            </div>
+          </div>
+
+          <!-- Custom Dataset Input Modal/Box (Hidden by default) -->
+          <div id="customDataBox" class="custom-data-box" style="display: none;">
+            <div class="card-title-row">
+              <h3>Load Custom Sequential Data</h3>
+              <button id="closeCustomDataBtn" class="control-btn" type="button">✕ Close</button>
+            </div>
+            <p class="card-caption">Paste comma-separated numbers (minimum 15 points) to train and forecast on custom series:</p>
+            <textarea id="customDataInput" rows="2" placeholder="e.g. 10.2, 12.5, 14.8, 18.2, 22.1, 25.4, 28.9, 31.2, 33.8, 36.5, 39.1, 41.0, 43.5, 46.2, 49.0"></textarea>
+            <div class="button-row" style="margin-top: 10px;">
+              <button id="applyCustomDataBtn" class="primary-btn btn-sm" type="button">Load &amp; Process Data</button>
+              <span id="customDataError" class="helper-text" style="color: var(--danger);"></span>
+            </div>
+          </div>
+
+          <!-- Statistics Grid (Document Requirement 3) -->
+          <div class="stats-grid" id="datasetStats">
+            <!-- Dynamically populated by app.js -->
+          </div>
+
+          <div class="data-layout">
+            <div class="table-card">
+              <div class="card-title-row">
+                <h3>Input Sequences &amp; Targets</h3>
+                <span class="badge-sm" id="tableWindowBadge">Window: 5 timesteps</span>
+              </div>
+              <p class="card-caption">
+                Sliding window formulation where each row contains [x_{t-4}, ..., x_t] and target y_{t+1}.
+              </p>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Sample #</th>
+                      <th>Input Sequence X</th>
+                      <th>Target y</th>
+                    </tr>
+                  </thead>
+                  <tbody id="datasetTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Dataset Sequential Trend</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot cyan"></span> Observed Series
+                  <span class="legend-dot amber"></span> Rolling Average
+                </div>
+              </div>
+              <div class="canvas-holder">
+                <canvas id="datasetTrendChart" width="560" height="280"></canvas>
+                <div class="chart-tooltip" id="datasetTooltip"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Data Preprocessing -->
+      <section id="preprocessing" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Data Preprocessing</p>
+            <h2>End-to-End Data Transformation Workflow</h2>
+            <p class="section-sub">
+              Visualizing data cleaning, Min-Max normalization, sliding window sequence generation, and train/test splitting.
+            </p>
+          </div>
+
+          <!-- 4 Preprocessing Steps with Interactive Detail (Document Requirement 4) -->
+          <div class="pipeline-grid" id="preprocessStepGrid">
+            <div class="pipeline-step active-step-card" data-step="0">
+              <span class="step-number">01</span>
+              <h3>Data Cleaning</h3>
+              <p>Detect missing timestamps, replace anomalies via spline interpolation, and guarantee temporal continuity.</p>
+              <div class="step-badge-tag success">Verified Clean</div>
+            </div>
+            <div class="pipeline-step" data-step="1">
+              <span class="step-number">02</span>
+              <h3>Normalization</h3>
+              <p>Scale values to [0, 1] using Min-Max scaling to prevent exploding activations in tanh layers.</p>
+              <div class="step-badge-tag info">Range: 0.00 – 1.00</div>
+            </div>
+            <div class="pipeline-step" data-step="2">
+              <span class="step-number">03</span>
+              <h3>Sequence Generation</h3>
+              <p>Construct sliding windows of size k to provide temporal context vectors for sequential modeling.</p>
+              <div class="step-badge-tag warning" id="windowBadgeText">Window: 5 Steps</div>
+            </div>
+            <div class="pipeline-step" data-step="3">
+              <span class="step-number">04</span>
+              <h3>Train / Test Split</h3>
+              <p>Partition temporal sequence into chronological training (80%) and validation holdout (20%) sets.</p>
+              <div class="step-badge-tag accent" id="splitBadgeText">80% / 20% Split</div>
+            </div>
+          </div>
+
+          <!-- Interactive Preprocessing Control Panel -->
+          <div class="interactive-preprocess-card">
+            <div class="preprocess-controls">
+              <div class="slider-group">
+                <label for="windowSizeSlider">
+                  Sliding Window Size (k):
+                  <strong id="windowSizeVal">5</strong> time steps
+                </label>
+                <input type="range" id="windowSizeSlider" min="3" max="7" value="5" step="1" />
+              </div>
+
+              <div class="slider-group">
+                <label for="splitRatioSlider">
+                  Train / Validation Split:
+                  <strong id="splitRatioVal">80</strong>% Train
+                </label>
+                <input type="range" id="splitRatioSlider" min="60" max="90" value="80" step="5" />
+              </div>
+            </div>
+
+            <div class="preprocess-visual-display">
+              <div class="split-bar-wrapper">
+                <div class="split-labels">
+                  <span id="trainCountLabel">Training Set: 32 samples (80%)</span>
+                  <span id="testCountLabel">Validation Set: 8 samples (20%)</span>
+                </div>
+                <div class="split-progress-bar">
+                  <div class="split-bar-train" id="splitBarTrain" style="width: 80%">Training (80%)</div>
+                  <div class="split-bar-test" id="splitBarTest" style="width: 20%">Test (20%)</div>
+                </div>
+              </div>
+
+              <div class="matrix-preview-grid">
+                <div class="matrix-box">
+                  <span class="matrix-label">Raw Values Sample:</span>
+                  <div class="matrix-code" id="rawSampleCode">[18.2, 22.5, 27.1, 31.8, 36.4]</div>
+                </div>
+                <div class="matrix-arrow">⟹ Min-Max Scaling [x' = (x - min)/(max - min)] ⟹</div>
+                <div class="matrix-box highlight">
+                  <span class="matrix-label">Normalized Tensor [0, 1]:</span>
+                  <div class="matrix-code" id="normSampleCode">[0.00, 0.03, 0.05, 0.07, 0.09]</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: RNN Model Architecture -->
+      <section id="model" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">RNN Model Architecture</p>
+            <h2>Deep Neural Network Structure &amp; Hyperparameters</h2>
+            <p class="section-sub">
+              Layer organization, tensor dimensionalities, and mathematical activation configurations.
+            </p>
+          </div>
+
+          <div class="architecture-layout">
+            <!-- Left: Visual Layered Architecture Diagram (Document Requirement 5) -->
+            <div class="architecture-diagram-card">
+              <h3>Layer Organization &amp; Data Flow</h3>
+              <div class="arch-stack">
+                <div class="arch-layer input-layer">
+                  <div class="arch-layer-head">
+                    <span class="layer-pill">Input Layer</span>
+                    <span class="tensor-dim" id="inputTensorDim">Tensor: (Batch, 5, 1)</span>
+                  </div>
+                  <p>Receives sequential sliding windows of length k. Each step feeds 1 normalized feature.</p>
+                </div>
+
+                <div class="arch-connector-down">↓ W_{xh} Input Weights ↓</div>
+
+                <div class="arch-layer rnn-layer">
+                  <div class="arch-layer-head">
+                    <span class="layer-pill accent">Recurrent RNN Layer</span>
+                    <span class="tensor-dim" id="rnnTensorDim">Units: 32 Hidden Neurons</span>
+                  </div>
+                  <p>
+                    Recurrent cell with self-looping hidden state memory h_t. Applies non-linear activation:
+                  </p>
+                  <div class="arch-formula">
+                    h_t = tanh(W_{hh} · h_{t-1} + W_{xh} · x_t + b_h)
+                  </div>
+                </div>
+
+                <div class="arch-connector-down">↓ W_{hy} Output Weights ↓</div>
+
+                <div class="arch-layer dense-layer">
+                  <div class="arch-layer-head">
+                    <span class="layer-pill success">Dense Output Layer</span>
+                    <span class="tensor-dim">Shape: (Batch, 1)</span>
+                  </div>
+                  <p>Linear output neuron projecting final memory state h_k to continuous forecast target:</p>
+                  <div class="arch-formula">
+                    ŷ = W_{hy} · h_k + b_y
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Important Model Parameters (Document Requirement 5) -->
+            <div class="parameter-card">
+              <h3>Model Configuration &amp; Hyperparameters</h3>
+              <div class="param-list">
+                <div class="param-item">
+                  <span class="param-name">RNN Hidden Units</span>
+                  <div class="param-selector-chips" id="unitChips">
+                    <button class="chip" data-units="16" type="button">16</button>
+                    <button class="chip active" data-units="32" type="button">32</button>
+                    <button class="chip" data-units="64" type="button">64</button>
+                  </div>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Activation Function</span>
+                  <strong class="param-val">Hyperbolic Tangent (Tanh)</strong>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Loss Function</span>
+                  <strong class="param-val">Mean Squared Error (MSE)</strong>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Optimization Algorithm</span>
+                  <strong class="param-val">Adam / RMSprop (Momentum)</strong>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Initial Learning Rate (α)</span>
+                  <strong class="param-val" id="currentLrVal">0.005</strong>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Batch Processing</span>
+                  <strong class="param-val">Mini-batch (16 samples)</strong>
+                </div>
+                <div class="param-item">
+                  <span class="param-name">Weight Initialization</span>
+                  <strong class="param-val">Xavier / Glorot Uniform</strong>
+                </div>
+              </div>
+
+              <div class="theory-note">
+                <strong>Backpropagation Through Time (BPTT):</strong>
+                Gradients are calculated by unrolling the recurrence network across all k steps,
+                computing loss derivatives via the chain rule backwards through hidden states.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Training & Results -->
+      <section id="training" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Training &amp; Results</p>
+            <h2>Interactive Training Simulation &amp; Real-Time Convergence</h2>
+            <p class="section-sub">
+              Train the client-side RNN model live, watch Loss vs Epoch plot in real time, inspect prediction vs actual values, and monitor validation metrics.
+            </p>
+          </div>
+
+          <!-- Training Controls Card (Document Requirement 6) -->
+          <div class="training-control-panel">
+            <div class="train-config-row">
+              <div class="slider-field">
+                <label for="epochCountSlider">
+                  Target Epochs: <strong id="epochCountVal">60</strong>
+                </label>
+                <input type="range" id="epochCountSlider" min="20" max="100" value="60" step="10" />
+              </div>
+
+              <div class="slider-field">
+                <label for="learningRateSelect">Learning Rate:</label>
+                <select id="learningRateSelect" class="custom-select">
+                  <option value="0.01">0.01 (Aggressive)</option>
+                  <option value="0.005" selected>0.005 (Optimal)</option>
+                  <option value="0.001">0.001 (Conservative)</option>
+                </select>
+              </div>
+
+              <div class="training-actions">
+                <button id="startTrainBtn" class="primary-btn" type="button">
+                  ▶ Start Training
+                </button>
+                <button id="pauseTrainBtn" class="secondary-btn" type="button" disabled>
+                  ⏸ Pause
+                </button>
+                <button id="resetTrainBtn" class="ghost-btn" type="button">
+                  ↺ Reset Model
+                </button>
+              </div>
+            </div>
+
+            <!-- Training Progress Bar -->
+            <div class="train-progress-block">
+              <div class="progress-info">
+                <span>Status: <strong id="trainStatusText">Ready to Train</strong></span>
+                <span>Epoch: <strong id="currentEpochText">0 / 60</strong></span>
+                <span>Current Train Loss: <strong id="currentLossText">--</strong></span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="trainProgressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Evaluation Metrics Cards (Document Requirement 6: MAE, MSE, RMSE, Accuracy) -->
+          <div class="metric-grid" id="metricGrid">
+            <!-- Dynamically populated by app.js -->
+          </div>
+
+          <!-- Dual Training Charts Grid (Requirement 6: Loss vs Epoch AND Prediction vs Actual) -->
+          <div class="training-display-grid">
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Loss vs Epoch Graph</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot amber"></span> Training Loss
+                  <span class="legend-dot cyan"></span> Validation Loss
+                </div>
+              </div>
+              <p class="card-caption">Convergence of Mean Squared Error over training iterations.</p>
+              <div class="canvas-holder">
+                <canvas id="lossChart" width="540" height="260"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Prediction vs Actual Values</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot cyan"></span> Ground Truth
+                  <span class="legend-dot amber"></span> RNN Forecast
+                </div>
+              </div>
+              <p class="card-caption">Validation sequence actual values overlaid against RNN model predictions.</p>
+              <div class="canvas-holder">
+                <canvas id="trainingComparisonChart" width="540" height="260"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sample Training Loss Values Table & Epoch Stream (Document Requirement 6) -->
+          <div class="training-loss-table-card">
+            <div class="loss-table-grid">
+              <div class="loss-table-col">
+                <div class="card-title-row">
+                  <h3>Sample Training Loss Values</h3>
+                  <span class="badge-sm info">Epoch Checkpoints</span>
+                </div>
+                <div class="table-wrapper">
+                  <table class="sample-loss-table">
+                    <thead>
+                      <tr>
+                        <th>Epoch</th>
+                        <th>Training Loss</th>
+                        <th>Validation Loss</th>
+                        <th>Δ Change</th>
+                        <th>Learning Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="sampleLossTableBody">
+                      <!-- Populated by app.js -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="loss-console-col">
+                <div class="card-title-row">
+                  <h3>Epoch Training Stream</h3>
+                  <span class="badge-sm" id="logBadge">Real-Time Console</span>
+                </div>
+                <div class="console-box" id="trainConsoleLog">
+                  <div class="console-line info">[System] Model initialized with 32 units, Xavier weights.</div>
+                  <div class="console-line">[System] Press 'Start Training' to simulate optimization.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: Prediction Section -->
+      <section id="prediction" class="section">
+        <div class="container predictor-panel">
+          <div class="section-heading left-align">
+            <p class="section-tag">Prediction Section</p>
+            <h2>Interactive Sequence Forecasting Engine</h2>
+            <p class="section-sub">
+              Enter custom sequence values or select realistic presets to compute multi-step future projections.
+            </p>
+          </div>
+
+          <div class="predictor-grid">
+            <!-- Input & Presets Column (Document Requirement 7) -->
+            <div class="input-card">
+              <h3>Input Sequence &amp; Presets</h3>
+              <p class="card-caption">
+                Provide comma-separated numbers (minimum 3 values) or click a quick-load preset below:
+              </p>
+
+              <div class="preset-buttons-row">
+                <button class="preset-btn" data-preset="upward" type="button">📈 Upward Trend</button>
+                <button class="preset-btn" data-preset="sine" type="button">🌊 Oscillating Wave</button>
+                <button class="preset-btn" data-preset="dip" type="button">📉 Sudden Dip</button>
+                <button class="preset-btn" data-preset="current" type="button">📂 Latest Dataset Window</button>
+              </div>
+
+              <div class="input-group">
+                <label for="sequenceInput">Sequential Observations:</label>
+                <textarea id="sequenceInput" rows="3" spellcheck="false">18.5, 22.3, 27.0, 31.4, 36.8</textarea>
+              </div>
+
+              <div class="forecast-horizon-group">
+                <label>Forecast Horizon:</label>
+                <div class="horizon-toggle" id="horizonToggle">
+                  <button class="horizon-btn active" data-horizon="1" type="button">+1 Step Ahead</button>
+                  <button class="horizon-btn" data-horizon="3" type="button">+3 Steps Ahead</button>
+                  <button class="horizon-btn" data-horizon="5" type="button">+5 Steps Ahead</button>
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button id="predictBtn" class="primary-btn" type="button">
+                  ⚡ Compute Forecast
+                </button>
+                <button id="resetBtn" class="secondary-btn" type="button">
+                  ↺ Reset
+                </button>
+              </div>
+
+              <p id="predictionMessage" class="helper-text" aria-live="polite">
+                Enter sequential numbers separated by commas.
+              </p>
+            </div>
+
+            <!-- Forecast Output & Visual Projection Column -->
+            <div class="result-card">
+              <div class="card-title-row">
+                <h3>Predicted Sequence Output</h3>
+                <span class="badge-sm success" id="forecastStatusBadge">Ready</span>
+              </div>
+
+              <div class="forecast-value-display">
+                <div class="result-label">Predicted Future Value(s):</div>
+                <div class="result-value" id="predictionResult">--</div>
+                <div class="result-trend-badge" id="trendDirectionBadge">Awaiting Input</div>
+              </div>
+
+              <!-- Prediction Visualization Chart -->
+              <div class="canvas-holder forecast-canvas-box">
+                <canvas id="predictionCanvas" width="460" height="180"></canvas>
+              </div>
+
+              <!-- Unfolded Hidden State Memory Visualizer (Document Requirement 7) -->
+              <div class="hidden-state-visualizer">
+                <div class="h-state-title">
+                  <span>RNN Hidden State Vector h_t Activations:</span>
+                  <span class="h-state-note">Memory Magnitude</span>
+                </div>
+                <div class="h-state-bars" id="hiddenStateBars">
+                  <!-- Populated by app.js -->
+                </div>
+              </div>
+
+              <div class="result-meta">
+                <p><strong>Processed Window:</strong> <span id="displaySequence">18.5, 22.3, 27.0, 31.4, 36.8</span></p>
+                <p><strong>Computation Mode:</strong> Recurrent Hidden State Propagation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Visualization Dashboard -->
+      <section id="dashboard" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Visualization Dashboard</p>
+            <h2>High-Fidelity Model Insights &amp; Diagnostics</h2>
+            <p class="section-sub">
+              Comprehensive responsive charts analyzing dataset trends, training convergence, actual vs predicted fit, and residual distribution.
+            </p>
+          </div>
+
+          <!-- 4 Dashboard Charts (Document Requirement 8) -->
+          <div class="dashboard-grid">
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Actual vs. Predicted Comparison</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot cyan"></span> Ground Truth
+                  <span class="legend-dot amber"></span> RNN Forecast
+                </div>
+              </div>
+              <p class="card-caption">Test sequence actual values overlaid against RNN model predictions.</p>
+              <div class="canvas-holder">
+                <canvas id="comparisonChart" width="500" height="260"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Residual Error Scatter &amp; Spread</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot green"></span> Absolute Residuals
+                  <span class="legend-dot red"></span> Zero Baseline
+                </div>
+              </div>
+              <p class="card-caption">Error magnitude |y_actual - ŷ_pred| at each validation time step.</p>
+              <div class="canvas-holder">
+                <canvas id="residualChart" width="500" height="260"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Residual Error Histogram</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot cyan"></span> Error Frequencies
+                </div>
+              </div>
+              <p class="card-caption">Frequency distribution of forecast errors indicating bias and variance.</p>
+              <div class="canvas-holder">
+                <canvas id="errorHistChart" width="500" height="260"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="card-title-row">
+                <h3>Hidden State Activation Profile</h3>
+                <div class="chart-legend">
+                  <span class="legend-dot amber"></span> Mean Neuron Activity
+                </div>
+              </div>
+              <p class="card-caption">Distribution of memory activations across the 32 hidden units.</p>
+              <div class="canvas-holder">
+                <canvas id="activationProfileChart" width="500" height="260"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 9: Project Workflow -->
+      <section id="workflow" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Project Workflow</p>
+            <h2>End-to-End Machine Learning Pipeline</h2>
+            <p class="section-sub">
+              Click any stage below to inspect its data structures, mathematical operations, and pipeline artifacts.
+            </p>
+          </div>
+
+          <!-- Interactive Workflow Pipeline (Document Requirement 9) -->
+          <div class="workflow-flow" id="workflowFlow">
+            <button class="workflow-step active" data-step="dataset" type="button">
+              <span class="wf-index">1</span>
+              <span class="wf-title">Dataset</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="preprocessing" type="button">
+              <span class="wf-index">2</span>
+              <span class="wf-title">Preprocessing</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="sequences" type="button">
+              <span class="wf-index">3</span>
+              <span class="wf-title">Sequence Generation</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="model" type="button">
+              <span class="wf-index">4</span>
+              <span class="wf-title">RNN Model</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="training" type="button">
+              <span class="wf-index">5</span>
+              <span class="wf-title">Training</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="prediction" type="button">
+              <span class="wf-index">6</span>
+              <span class="wf-title">Prediction</span>
+            </button>
+            <div class="workflow-arrow">→</div>
+
+            <button class="workflow-step" data-step="evaluation" type="button">
+              <span class="wf-index">7</span>
+              <span class="wf-title">Evaluation</span>
+            </button>
+          </div>
+
+          <!-- Workflow Step Detail Inspector Card -->
+          <div class="workflow-detail-box" id="workflowDetailBox">
+            <div class="wf-detail-header">
+              <span class="badge-sm" id="wfStepTag">Step 1 of 7</span>
+              <h3 id="wfStepTitle">Dataset Ingestion &amp; Time-Series Observations</h3>
+            </div>
+            <div class="wf-detail-body">
+              <div class="wf-info-col">
+                <strong>Input Artifacts:</strong>
+                <p id="wfStepInputs">Raw sequential measurements (energy, temperature, or market prices).</p>
+              </div>
+              <div class="wf-info-col">
+                <strong>Transformation / Algorithm:</strong>
+                <p id="wfStepTransform">Continuous series validation, chronological sorting, and frequency alignment.</p>
+              </div>
+              <div class="wf-info-col">
+                <strong>Produced Output:</strong>
+                <p id="wfStepOutputs">Ordered 1D array of N sequential floating-point numbers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 10: Conclusion & Practical Applications -->
+      <section id="applications" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-tag">Conclusion &amp; Applications</p>
+            <h2>Real-World Industry Applications of RNNs</h2>
+            <p class="section-sub">
+              Summarizing the role of recurrent sequence models across industry domains and modern deep learning paradigms.
+            </p>
+          </div>
+
+          <!-- 5 Practical Applications (Document Requirement 10) -->
+          <div class="applications-grid">
+            <div class="app-card">
+              <div class="app-icon">📈</div>
+              <h3>Time-Series Forecasting</h3>
+              <p>
+                Predicting energy grid consumption, weather variables, traffic volume, and financial asset movements
+                by learning cyclic patterns and historical trajectories.
+              </p>
+              <div class="app-pill">Architecture: Many-to-One / Many-to-Many</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">📝</div>
+              <h3>Text Prediction &amp; NLP</h3>
+              <p>
+                Modeling character and token sequences for predictive keyboard typing, next-word suggestion,
+                and preliminary language understanding tasks.
+              </p>
+              <div class="app-pill">Architecture: Character-Level RNN</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">💬</div>
+              <h3>Sentiment Analysis</h3>
+              <p>
+                Evaluating subjective reviews, customer feedback, and social sentiment by processing variable-length
+                token sequences and projecting to polarity scores.
+              </p>
+              <div class="app-pill">Architecture: Many-to-One Classification</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🎙️</div>
+              <h3>Speech Processing</h3>
+              <p>
+                Converting continuous audio acoustic spectrograms into phonetic sequences for automated voice
+                transcription and command detection.
+              </p>
+              <div class="app-pill">Architecture: Sequence-to-Sequence</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🛡️</div>
+              <h3>Sequence Anomaly Detection</h3>
+              <p>
+                Detecting abnormal sensor spikes in industrial IoT machinery, server telemetry, and financial
+                transaction streams through reconstruction error spikes.
+              </p>
+              <div class="app-pill">Architecture: RNN Autoencoder</div>
+            </div>
+          </div>
+
+          <!-- Comparative Architecture Matrix -->
+          <div class="comparison-table-card">
+            <h3>Sequential Deep Learning Architecture Comparison</h3>
+            <div class="table-wrapper">
+              <table class="arch-compare-table">
+                <thead>
+                  <tr>
+                    <th>Architecture</th>
+                    <th>Memory Mechanism</th>
+                    <th>Gradient Flow</th>
+                    <th>Computational Cost</th>
+                    <th>Primary Strengths</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="active-row">
+                    <td><strong>Vanilla RNN</strong></td>
+                    <td>Single recurrent hidden state h_t</td>
+                    <td>Subject to vanishing gradients</td>
+                    <td>Low / Lightweight</td>
+                    <td>Foundational concept, fast inference, short sequences</td>
+                  </tr>
+                  <tr>
+                    <td><strong>LSTM</strong></td>
+                    <td>Cell state + Input/Forget/Output Gates</td>
+                    <td>Constant error carousel prevents vanishing</td>
+                    <td>Medium (4x weights)</td>
+                    <td>Long-term dependencies, robust memory</td>
+                  </tr>
+                  <tr>
+                    <td><strong>GRU</strong></td>
+                    <td>Reset &amp; Update Gates</td>
+                    <td>Direct hidden state interpolation</td>
+                    <td>Medium (3x weights)</td>
+                    <td>Faster training than LSTM with comparable accuracy</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Transformer</strong></td>
+                    <td>Multi-Head Self-Attention (Non-recurrent)</td>
+                    <td>Direct parallel connectivity</td>
+                    <td>High (Quadratic in sequence length)</td>
+                    <td>State-of-the-art for LLMs and massive foundation models</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Academic Conclusion Box -->
+          <div class="conclusion-box" id="conclusion">
+            <span class="badge-sm accent">Demonstration Summary</span>
+            <h2>Conclusion</h2>
+            <p>
+              This application comprehensively demonstrates the core principles of Recurrent Neural Networks:
+              maintaining an internal memory vector that updates recurrently at each observation time step.
+              By combining interactive data preprocessing, dynamic sliding window sequence generation, live client-side
+              training simulation, and multi-step forecasting, the project illustrates how temporal dependencies
+              are learned, optimized, and evaluated in a transparent, accessible, frontend-only environment.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div class="footer-brand">
+          <strong>RNN-Based Sequential Data Prediction System</strong>
+          <span>Frontend-Only Deep Learning Demonstration Web Application</span>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Back to Top ↑</a>
+          <a href="#about">About RNN</a>
+          <a href="#training">Training Simulation</a>
+          <a href="#prediction">Prediction Engine</a>
+        </div>
+        <div class="footer-copy">
+          Designed for academic presentation &amp; interactive machine learning education.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+  </body>
+</html>
